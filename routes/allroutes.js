@@ -11,7 +11,7 @@ const request = require('request');
 router.get('/', function (req, res, next) {
     res.render('index', 
     { 
-      title: 'Node DemoApp - Home', 
+      title: 'FD Demo - Home',     
       ver: process.env.npm_package_version
     });
 });
@@ -34,8 +34,8 @@ router.get('/info', function (req, res, next) {
 
   res.render('info', 
   { 
-    title: 'Node DemoApp - Info', 
-    info: info, 
+    title: 'FD Demo - Info', 
+    info: info,    
     isDocker: fs.existsSync('/.dockerenv'), 
     ver: process.env.npm_package_version
   });
@@ -78,8 +78,8 @@ router.get('/weather', function (req, res, next) {
           temp: weather.currently.temperature,
           precip: weather.currently.precipProbability,
           wind: weather.currently.windSpeed,
-          title: 'Node DemoApp - Weather', 
-          ver: process.env.npm_package_version
+          title: 'FD Demo - Weather', 
+          ver: process.env.npm_package_version        
         }); 
       } else {
         return res.status(500).end('API error fetching weather: ' + apierr + ' - '+apires);
@@ -101,8 +101,9 @@ router.get('/load', function (req, res, next) {
 
   res.render('load', 
   { 
-    title: 'Node DemoApp - Load', 
+    title: 'FD Demo - Load', 
     val: val,
+    staging: process.env.WEBSITE_HOSTNAME ? process.env.WEBSITE_HOSTNAME.includes("staging") : false,        
     time: (new Date().getTime() - start),
     ver: process.env.npm_package_version
   });

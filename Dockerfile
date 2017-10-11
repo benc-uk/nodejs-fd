@@ -1,5 +1,5 @@
 FROM node:6-alpine
-LABEL Name="Node.js Demo App" Version=2.5.0
+LABEL Name="Future Decoded App" Version=2.5.0
 ENV NODE_ENV production
 WORKDIR /usr/src/app
 
