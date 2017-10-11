@@ -1,10 +1,13 @@
 body {
   padding-top: 70px;
   background-color: #1d581d;
-  font-family: "Comic Sans MS"
+  font-family: "Comic Sans MS";
+  background: url(/images/background.jpg);
+  background-size: 2000px;
+  background-repeat: repeat;  
 }
 .jumbotron {
-  background-color: rgba(9, 27, 58, 0.38);
+  background-color: rgba(9, 27, 58, 0.88);
   font-family: "Comic Sans MS"
 }
 .navbar, .navbar-brand  {
@@ -15,7 +18,9 @@ body {
 }
 h2 {
   font-size: 3.5em;
-  font-family: "Comic Sans MS"
+  font-family: "Comic Sans MS";
+  border: 4px solid magenta;
+  text-align: center;
 }
 .footnote {
   font-size: 90%;
