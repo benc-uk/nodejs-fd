@@ -1,6 +1,6 @@
 {
-  "name": "nodejs-demoapp",
-  "description": "Simple Node.js Express app for demos",
+  "name": "nodejs-fd",
+  "description": "Simple Node.js Express app for Future Decoded",
   "version": "2.5.0",
   "author": "Ben Coleman",
   "engines" : { "node" : "6.11.2" },
