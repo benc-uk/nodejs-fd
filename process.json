@@ -1,6 +1,6 @@
 {
    "apps" : [{
-     "name"        : "nodejs-demoapp",
+     "name"        : "nodejs-fd",
      "script"      : "server.js",
      "watch"       : true,
      "env": {
