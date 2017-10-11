@@ -9,7 +9,8 @@ if(process.env.APPINSIGHTS_INSTRUMENTATIONKEY) {
 var cluster = require('cluster');
 
 // Code to run if we're in the master process
-// The APP_POOL_ID check is a test to see if we're running in Azure App Service
+// Note. The APP_POOL_ID check is a test to see if we're running in Azure App Service 
+//  - where using cluster & fork doesn't work :'( 
 if (cluster.isMaster && !process.env.APP_POOL_ID) {
   // Count the machine's CPUs
   var cpuCount = require('os').cpus().length;
