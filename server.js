@@ -5,25 +5,21 @@ if(process.env.APPINSIGHTS_INSTRUMENTATIONKEY) {
   appInsights.start();
 }
 
-
-
 // Include the cluster module
 var cluster = require('cluster');
 
 // Code to run if we're in the master process
-if (cluster.isMaster) {
+// The APP_POOL_ID check is a test to see if we're running in Azure App Service
+if (cluster.isMaster && !process.env.APP_POOL_ID) {
   // Count the machine's CPUs
   var cpuCount = require('os').cpus().length;
-  console.log(`### Starting master, detected ${cpuCount} cores, spawning workers for each`);
+  console.log(`### Starting cluster, detected ${cpuCount} cores, spawning workers for each`);
 
   // Create a worker for each CPU
   for (var i = 0; i < cpuCount; i += 1) {
     cluster.fork();
   }
 } else {
-  // Fix for azure app service weirdness with cluster
-  process.chdir(__dirname);
-
   // Code to run if we're in a worker process, i.e. the main express app
   var express = require('express');
   var path = require('path');
@@ -64,5 +60,5 @@ if (cluster.isMaster) {
   // Start the server, wow!
   var port = process.env.PORT || 3000
   app.listen(port);
-  console.log(`### Server process ${cluster.worker.id} listening on port ${port}`);
+  console.log(`### Server process listening on port ${port}`);
 }
