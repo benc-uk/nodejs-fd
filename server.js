@@ -5,8 +5,7 @@ if(process.env.APPINSIGHTS_INSTRUMENTATIONKEY) {
   appInsights.start();
 }
 
-// Fix for app service weirdness with cluster
-process.chdir(__dirname);
+
 
 // Include the cluster module
 var cluster = require('cluster');
@@ -22,6 +21,9 @@ if (cluster.isMaster) {
     cluster.fork();
   }
 } else {
+  // Fix for azure app service weirdness with cluster
+  process.chdir(__dirname);
+
   // Code to run if we're in a worker process, i.e. the main express app
   var express = require('express');
   var path = require('path');
