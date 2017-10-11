@@ -5,6 +5,9 @@ if(process.env.APPINSIGHTS_INSTRUMENTATIONKEY) {
   appInsights.start();
 }
 
+// Fix for app service weirdness with cluster
+process.chdir(__dirname);
+
 // Include the cluster module
 var cluster = require('cluster');
 
