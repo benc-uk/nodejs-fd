@@ -22,7 +22,7 @@ router.use(function(req, res, next) {
 router.get('/', function (req, res, next) {
     res.render('index', 
     { 
-      title: 'FD Demo - Beta',     
+      title: 'FD Demo - Home',     
       ver: process.env.npm_package_version
     });
 });
