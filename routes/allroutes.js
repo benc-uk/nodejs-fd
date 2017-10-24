@@ -9,9 +9,9 @@ const request = require('request');
 ///////////////////////////////////////////
 router.use(function(req, res, next) {
   if(req.headers['x-ms-client-principal-name']) {
-    req.user = req.headers['x-ms-client-principal-name'];
+    req.app.locals.user = req.headers['x-ms-client-principal-name'];
   } else {
-    req.user = "";
+    req.app.locals.user = null;
   }
   next(); 
 });
@@ -24,8 +24,7 @@ router.get('/', function (req, res, next) {
     res.render('index', 
     { 
       title: 'FD Demo - Beta',     
-      ver: process.env.npm_package_version,
-      user: req.user
+      ver: process.env.npm_package_version
     });
 });
 
@@ -50,8 +49,7 @@ router.get('/info', function (req, res, next) {
     title: 'FD Demo - Info', 
     info: info,    
     isDocker: fs.existsSync('/.dockerenv'), 
-    ver: process.env.npm_package_version,
-    user: req.user
+    ver: process.env.npm_package_version
   });
 });
 
@@ -93,8 +91,7 @@ router.get('/weather', function (req, res, next) {
           precip: weather.currently.precipProbability,
           wind: weather.currently.windSpeed,
           title: 'FD Demo - Weather', 
-          ver: process.env.npm_package_version,
-          user: req.user 
+          ver: process.env.npm_package_version
         }); 
       } else {
         return res.status(500).end('API error fetching weather: ' + apierr + ' - '+apires);
@@ -120,8 +117,7 @@ router.get('/load', function (req, res, next) {
     val: val,
     staging: process.env.WEBSITE_HOSTNAME ? process.env.WEBSITE_HOSTNAME.includes("staging") : false,        
     time: (new Date().getTime() - start),
-    ver: process.env.npm_package_version,
-    user: req.user
+    ver: process.env.npm_package_version
   });
 });
 
