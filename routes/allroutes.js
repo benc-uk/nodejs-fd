@@ -9,9 +9,9 @@ const request = require('request');
 // Get home page and index
 ///////////////////////////////////////////
 router.get('/', function (req, res, next) {
-    res.render('index', 
+    res.render('beta', 
     { 
-      title: 'FD Demo - Home',     
+      title: 'FD Demo - Beta',     
       ver: process.env.npm_package_version
     });
 });
