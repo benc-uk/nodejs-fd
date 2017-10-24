@@ -9,7 +9,7 @@ const request = require('request');
 // Get home page and index
 ///////////////////////////////////////////
 router.get('/', function (req, res, next) {
-    res.render('beta', 
+    res.render('index', 
     { 
       title: 'FD Demo - Beta',     
       ver: process.env.npm_package_version
