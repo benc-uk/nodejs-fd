@@ -109,4 +109,14 @@ router.get('/load', function (req, res, next) {
   });
 });
 
+
+///////////////////////////////////////////
+// Page to debug headers & cookies
+///////////////////////////////////////////
+router.get('/debug', function (req, res, next) {
+  
+  console.log(req.headers);
+  res.send({request:req.headers})
+  });
+
 module.exports = router;
