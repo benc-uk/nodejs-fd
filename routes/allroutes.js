@@ -4,15 +4,28 @@ const os = require('os');
 const fs = require('fs');
 const request = require('request');
 
+///////////////////////////////////////////
+// Middleware to pick up if user is logged in via Azure App Service Auth
+///////////////////////////////////////////
+router.use(function(req, res, next) {
+  if(req.headers['x-ms-client-principal-name']) {
+    req.user = req.headers['x-ms-client-principal-name'];
+  } else {
+    req.user = "";
+  }
+  next(); 
+});
 
 ///////////////////////////////////////////
 // Get home page and index
 ///////////////////////////////////////////
 router.get('/', function (req, res, next) {
+  console.log("5555", req.user);
     res.render('index', 
     { 
       title: 'FD Demo - Beta',     
-      ver: process.env.npm_package_version
+      ver: process.env.npm_package_version,
+      user: req.user
     });
 });
 
@@ -37,7 +50,8 @@ router.get('/info', function (req, res, next) {
     title: 'FD Demo - Info', 
     info: info,    
     isDocker: fs.existsSync('/.dockerenv'), 
-    ver: process.env.npm_package_version
+    ver: process.env.npm_package_version,
+    user: req.user
   });
 });
 
@@ -79,7 +93,8 @@ router.get('/weather', function (req, res, next) {
           precip: weather.currently.precipProbability,
           wind: weather.currently.windSpeed,
           title: 'FD Demo - Weather', 
-          ver: process.env.npm_package_version        
+          ver: process.env.npm_package_version,
+          user: req.user 
         }); 
       } else {
         return res.status(500).end('API error fetching weather: ' + apierr + ' - '+apires);
@@ -105,24 +120,9 @@ router.get('/load', function (req, res, next) {
     val: val,
     staging: process.env.WEBSITE_HOSTNAME ? process.env.WEBSITE_HOSTNAME.includes("staging") : false,        
     time: (new Date().getTime() - start),
-    ver: process.env.npm_package_version
+    ver: process.env.npm_package_version,
+    user: req.user
   });
-});
-
-
-///////////////////////////////////////////
-// Page to debug headers & cookies
-///////////////////////////////////////////
-router.get('/debug', function (req, res, next) {
-  
-  console.log("HEADERS ", req.headers);
-  console.log('###############');
-  request('/.auth/me', { json: true }, (err, res, body) => {
-    if (err) { return console.log(err); }
-    console.log("AUTH/ME ", res);
-    res.send({result:res})
-  });
-
 });
 
 module.exports = router;
