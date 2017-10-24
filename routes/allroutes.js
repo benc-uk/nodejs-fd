@@ -20,7 +20,6 @@ router.use(function(req, res, next) {
 // Get home page and index
 ///////////////////////////////////////////
 router.get('/', function (req, res, next) {
-  console.log("5555", req.user);
     res.render('index', 
     { 
       title: 'FD Demo - Beta',     
