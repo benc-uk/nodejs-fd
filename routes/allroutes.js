@@ -115,8 +115,14 @@ router.get('/load', function (req, res, next) {
 ///////////////////////////////////////////
 router.get('/debug', function (req, res, next) {
   
-  console.log(req.headers);
-  res.send({request:req.headers})
+  console.log("HEADERS ", req.headers);
+  console.log('###############');
+  request('/.auth/me', { json: true }, (err, res, body) => {
+    if (err) { return console.log(err); }
+    console.log("AUTH/ME ", res);
+    res.send({result:res})
   });
+
+});
 
 module.exports = router;
